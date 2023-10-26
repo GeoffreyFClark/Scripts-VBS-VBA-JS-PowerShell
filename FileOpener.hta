@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>File Opener HTA</title>
+    <hta:application
+        id="fileOpener"
+        applicationname="File Opener"
+        border="dialog"
+        contextmenu="yes"
+        icon="your_icon.ico"
+        scroll="yes"
+        singleinstance="yes"
+        sysmenu="yes"
+    >
+</head>
+<body>
+    <h1>File Path Manager</h1>
+
+    <!-- Text input field for entering file paths -->
+    <label for="filePathInput">Enter File Path:</label>
+    <input type="text" id="filePathInput" placeholder="C:\Path\to\YourFile.doc">
+    <button id="addPathButton">Add</button>
+
+    <!-- List to display saved file paths -->
+    <h2>Saved File Paths:</h2>
+    <ul id="filePathList"></ul>
+
+    <!-- Button to open all listed file paths -->
+    <button id="openAllButton">Open All</button>
+
+    <script>
+        // Function to add a file path to the list
+        function addFilePath() {
+            const filePathInput = document.getElementById('filePathInput');
+            const filePath = filePathInput.value.trim();
+
+            if (filePath !== '') {
+                const filePathList = document.getElementById('filePathList');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${filePath} <button class="removeButton">Remove</button>`;
+                filePathList.appendChild(listItem);
+                filePathInput.value = '';
+
+                // Add a click event listener to the remove button
+                const removeButton = listItem.querySelector('.removeButton');
+                removeButton.addEventListener('click', function() {
+                    listItem.remove();
+                });
+            }
+        }
+
+        // Function to open all listed file paths
+        function openAllFilePaths() {
+            const fileLinks = document.querySelectorAll('#filePathList li');
+            for (const fileLink of fileLinks) {
+                const filePath = fileLink.textContent.split(' ')[0]; // Extract the file path
+                window.external.OpenFile(filePath);
+            }
+        }
+
+        // Add click event listeners
+        document.getElementById('addPathButton').addEventListener('click', addFilePath);
+        document.getElementById('openAllButton').addEventListener('click', openAllFilePaths);
+    </script>
+</body>
+</html>
