@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vue.js Test HTA</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <hta:application
+        id="vueTest"
+        applicationname="Vue.js Test"
+        border="dialog"
+        contextmenu="yes"
+        icon="your_icon.ico"
+        scroll="yes"
+        singleinstance="yes"
+        sysmenu="yes"
+    >
+</head>
+<body>
+    <div id="app">
+        <button @click="showMessage">Click me</button>
+        <p>{{ message }}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: ''
+            },
+            methods: {
+                showMessage() {
+                    this.message = 'JavaScript and Vue.js are working!'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
