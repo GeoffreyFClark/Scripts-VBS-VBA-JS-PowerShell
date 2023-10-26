@@ -1,3 +1,5 @@
+' When publications get updated and the filename stays the same except for a "current as of" portion, e.g. "abc 123 xyz (CAO Feb 2021).pdf" --> "abc 123 xyz (CAO Oct 2023).pdf"
+
 ' Force variable declaration
 Option Explicit
 
@@ -10,9 +12,11 @@ Set objShell = CreateObject("WScript.Shell")
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 
 ' Array of PDF file paths to open
-filePaths = Array("C:\filepath\file1.pdf", _
-                  "C:\filepath\file2.pdf", _
-                  "C:\filepath\file3.pdf") 
+filePaths = Array( _
+"""C:\filepath\file1.pdf""", _
+"""C:\filepath\file2.pdf""", _
+"""C:\filepath\file3.pdf""" _
+)
 
 ' Loop through each to open
 For i = 0 To UBound(filePaths)
